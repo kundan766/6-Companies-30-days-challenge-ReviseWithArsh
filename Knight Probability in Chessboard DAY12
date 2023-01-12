@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int dx[8] = {-2, -2, -1, 1, 2, 2, 1, -1};
+    
+    int dy[8] = {-1, 1, 2, 2, 1, -1, -2, -2};
+    
+   double dp[26][26][105];
+
+    
+    double solve(int n, int m, int k, int row, int col){
+            
+            if(row<0 || col<0 || row>=n || col>=n) return 0;
+            
+            if(k==0) return 1;
+            
+            if(dp[row][col][k]!=0) return dp[row][col][k];
+            
+            
+            double ans = 0;
+            
+            for(int i =0; i<8; i++){
+                    
+                    int nx = row+dx[i], ny = col+dy[i];
+                    
+                  
+                          ans+=solve(n, m, k-1, nx, ny);
+            
+            }
+            
+            return dp[row][col][k] =  ans/8.0;
+            
+            
+            
+    }
+    
+double knightProbability(int n, int k, int row, int col) {
+        
+        if(k==0){
+                
+                return (double)(1);
+        }
+        
+       
+        
+        memset(dp, 0, sizeof(dp));
+        
+       
+        
+       return  solve(n, n, k, row, col);
+        
+}
+    
+};
